@@ -1,0 +1,59 @@
+\documentclass{article}
+
+% DIMENSIONE PAGINA
+\usepackage[a4paper,top=2cm,bottom=2cm,left=2cm,right=2cm,marginparwidth=1.75cm]{geometry}
+
+%LAYOUT PAGINA
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[R]{Networking II}
+\fancyfoot{}
+\fancyfoot[C]{\thepage}
+\fancyhead[L]{\leftmark}
+
+\usepackage[utf8]{inputenc}
+\usepackage{longtable}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{float} %Per posizionamento H
+
+
+\usepackage{hyperref} %per TOC linkable
+
+\usepackage{chngcntr} %Per numeration figure 
+\counterwithin{figure}{section}
+
+\counterwithin{footnote}{section}
+
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+
+% PER paragraph
+\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
+
+% Ridefinizione spazio liste
+\usepackage{enumitem}
+\setlist{nolistsep}
+\setlist{itemsep=0pt,parsep=0pt,topsep=4pt,partopsep=2pt}
+
+\usepackage{placeins} %per float barriers
+
+
+\begin{document}
+
+\include{Frontespazio}
+
+\renewcommand*\contentsname{Chapters}
+
+    \tableofcontents
+    \include{Basic Notions}
+    \include{Authentication 1}
+    \include{Cryptograpy}
+
+\end{document}

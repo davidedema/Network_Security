@@ -1,0 +1,66 @@
+\section{Basic Notions}
+    \subsection{The CIA Triad}
+    In order to define the concept of security we need to introduce three proprieties called the \textbf{CIA Triad}.
+    \begin{itemize}
+        \item \textbf{Confidentiality:} The ability to prevent unauthorised \textit{disclosure} of information and permit authorised sharing of information, this ability is most related to \textit{access} an information.
+        \item \textbf{Integrity:} The ability to prevent unauthorised \textit{modification} of information and permit authorised modification of information, this ability is most related to \textit{edit} an information.
+        \item \textbf{Availability:} The ability to prevent unauthorised withholding of information or services and readly permit authorised access to information or services, this ability is most related to \textit{guarantee the continuity} of the service or information.
+    \end{itemize}
+    
+    \myparagraph{Confidentiality}
+    Preserving authorised restrictions on information access and disclosure, including means for protecting personal privacy and proprietary information. Confidentiality covers data in storage, during processing and while in transit. Unauthorised access could be \textbf{intentional} such as intruder breaking into the network or \textbf{unintentional} due to incompetence of who store the data. 
+    
+    Typically we guarantee confidentiality with \textbf{data encryption} or using an \textbf{access control} mechanism.
+    
+    \myparagraph{Integrity}
+    Guarding against improper information modification or destruction, including to ensure the non-repudiation and authenicity of the data. So this is the propriety that guarantee that sensitive data has not be modified or deleted in an unauthorised and undetected manner. Data integrity can be compromised through human errors and attacks like malware or ransomware.
+    
+    We can guarantee integrity implementing version control and audit trails\footnote{Track the data modification, like logs}.
+    
+    \myparagraph{Availability}
+    Ensuring timely and reliable access to and use of information for authorised users, assure that systems work promptly and service is not denied to authorised users. Violations of availability include infrastructure failures like network or hardware issues, infrastructure overload, power outages and attacks such as Distributed Denial of Services (DDoS) or Ransomware.
+    
+    We can guarantee availability employing a \textbf{backup} system and a \textbf{disaster recovery} plan, or utilizing \textbf{cloud} solutions for data storage.
+    \\\\
+    The CIA triad is essential because it allows for achieving \textbf{security}, it's at the same time a positive and negative characteristic: positive since it applies to a wide range of situations and use cases, negative since it must be instantiated to every situation and use case. Such instantiations are called security policies that require security mechanisms to be enforced.
+    
+    CIA triad is also important to help us to understand \textbf{security violations}, let's consider a ransomware attack, it violate Confidentiality because it access in the computer without our permission, Integrity because all the Data is copied and Availability because it encrypt all data in our computer. We can use the \textbf{zero trust} framework to mitigate this attack, it require all users to be authenticated, authorized and continuosly validated (this is a risk management). CIA triad is crucial for risk management, it involves identifying, assessing and treating risks.
+    Risk management main phases:
+    \begin{itemize}
+        \item Identification of assets, vulnerabilities, threats and controls
+        \item Assessment as likelihood and impact of a threat exploiting a vulnerability
+        \item Treatment to reduce risks by selecting appropriated controls
+    \end{itemize}   
+    
+    \subsection{Security Policies and Mechanisms}
+    With the term security \textbf{policy} we identify all the rules and the requirements established by an organization to protect confidentiality, integrity and availability of its information. An example of this is the protocol that a company need for example to access a sensitive area (biometric recognition ecc.).
+    
+    With the term security \textbf{mechanism} we describe to a device or a function designed to provide one or more security services, it's an implementation of a security policy, it could be hardware or software. Examples could be an authentication process, authorization or an access control.
+    
+    With the trem security \textbf{service} we refer to a capability that supports one or more of the security requirenebts. An example could be the HTTPS protocol that add the TLS protocol in HTML.
+    
+    \subsection{Threat, Vulnerability and Attacks}
+    \myparagraph{Definitions}
+    A \textbf{vulnerability} is a weakness in an information system that we exploit in order to perform an attack, examples are hidden backdoors, unknown software bugs or weak passwords. It can be characterized by how easy it is to identify them and exploit them
+    
+    A \textbf{threat} is any circumstance or event with the potential to adversely impact an informative system or some datas via unauthorized access, destruction, disclosure, modification of information or denial of service. An example of threat are hackers that exploit a vulnerability in order to perform attacks. It can be characterized as a combination of intent (propensity of attack) and capability (ability to successfully attack).
+    
+    An \textbf{attack} is any kind of malicious activity that attempts to collect, disrupt, deny, degrade or destroy information system resources or the information itself.
+    
+    A \textbf{threat} exploit a \textbf{vulnerability} in order to perform \textbf{attacks}.
+    
+    \myparagraph{Risk}
+    The combination of a Threat and a Vulerability produce a \textbf{Risk}, this has two proprieties: the likelihood so the probability that something bad happen and the impact. In HTTP for example there isn't any notion of security so the likelihood of the risk is high because is easy to perform.
+    
+    A \textbf{risk} is the probability that a particular security threat will exploit a system vulnerability, is in function of the \textit{adverse impact} that would arise if the circumstance or event occours and the \textit{likelihood od occurrence}.
+    
+    A threat model is a structured representation of all the information that affects the security of an application, it typically include:
+    \begin{itemize}
+        \item Description of the system to be modelled 
+        \item Assumption that can be challenged in the future 
+        \item Potential threats to the system
+        \item Controls that can be taken to mitigate each threat
+        \item A way of validating the model and threats, and verification of success of controls taken
+    \end{itemize}   
+    
+    

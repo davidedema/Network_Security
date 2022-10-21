@@ -1,0 +1,30 @@
+%--LECTURE PAGE 41--%
+\section{Cryptography}
+    \subsection{Introduction to Cryptography}
+    \textbf{Cryptography} is the science and study of secret writing, \textbf{cryptoanalysis} is the science and the study of methods of breaking ciphers, \textbf{Cryptology} is cryptography and cryptoanalysis. Today cryptography is the study of mathematical techniques related to aspects of information security such as:
+    \begin{itemize}
+        \item \textbf{Confidentiality}: encryption algorithms hide the content of messages
+        \item data \textbf{Integrity}: integrity check functions provide the means to detect whether a document has been changed
+        \item entity authentication 
+        \item data origin authentication: message authentication codes or digital signature algorithms provide the means to verify the source and integrity of a message
+    \end{itemize}
+    Cryptography is a security mechanism that includes a set of techniques for scrambling or disguising data so that is available only to someone who can restore the data to its original form. It provides a string economical basis for offering data security as a security service.
+    
+    \myparagraph{Cryptosystem}
+    A cryptosystem is a 5-tuple (E,D,M,K,C) where
+    \begin{itemize}
+        \item \textbf{E} is an \textit{encryption} algorithm
+        \item \textbf{D} is a \textit{decryption} algorithm
+        \item \textbf{M} is the set of \textit{plaintexts}
+        \item \textbf{K} is the set of \textit{keys} 
+        \item \textbf{C} is the set of \textit{ciphertexts}
+    \end{itemize}
+    
+    So $D(E(m,k),k)=m$, encryption and decryption keys are not necessarily the same (simmetric or asimmetric cryptography).
+    
+    \textbf{Kerckhoffs principle}: do not rely on the secrecy of algorithms, the key should be the only secret that needs protection
+    
+    \myparagraph{About Keys}
+    A key is an input to a cryptographic algorithm used to obtain confidentiality, integrity and authenticity or other property over some data, security depends on keeping the key secret.
+    
+    %PAGE 12%
