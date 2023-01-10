@@ -1,0 +1,91 @@
+\section{Authentication 2}
+\subsection{Single Sign On (SSO)}
+Multiple system typically require multiple sign-on dialogues so this implements password fatigue (multiple sets of credentials and presenting credentials multiple times). The basic idea of \textbf{SSO} is that a user with it's user agent access the application through the service provider, this one refers to an \textbf{identity provider} for the authentication. Than the user provide credential to the identity provider and finally can access the service requested. Credentials never leave the authentication domain, service providers have to \textbf{trust} the authentication domain and the authentication tranfer has to be protected.
+
+\subsection{SAML}
+\subsubsection{Introduction}
+\textbf{SAML} that stays for Security Assertion Markup Language is a XML like language that it wants to answer to the lack of standards and interoperable solutions for exchanging authentication and authorization information across security domains. SAML distinguish two main entities: the Identity provider (IdP) and the Service Provider (SP), a group of entities is called federation, they share a common policy and are managed as a single entity, in a federation all the entity have to trust each others.
+
+IdP and SP share metadata in whatever form possible, the most important metadata shared is the entity ID and the Public keys.
+
+This is a possible scenario where SAML is used:
+\begin{enumerate}
+    \item A user want to access an SP.
+    \item The user is redirected to a Discovery service, it can be external or embedded, it allows the user to choose the IdP.
+    \item The user goes back to the SP with the ID of his own IdP
+    \item The user is redirected to the IdP
+    \item Authentication is performed
+    \item The user goes back to the SP with the authentication
+\end{enumerate}
+All the steps above are associated with a SAML assertion. 
+\subsubsection{Details}
+SAML is composed of different components:
+\myparagraph{Assertions}
+An assertion is a set of statements made by a SAML authority, it can be seen as the unit of information exchanged in SAML. There are three types of assertions:
+\begin{itemize}
+    \item \textbf{Authentication assertion} is issued by a party that authenticates users, it describe who issued the assertion, when it was created, the authenticated subject, the validity period and other authentication related information like what type of authentication is used. 
+    \item \textbf{Attribute assertion} defines specific details about the subject (e.g. Alice has a VIP member status).
+    \item \textbf{Authorization assertion} defines something that the subject is entitled to do (e.g. Alice is permitted to rent a car when on a business trip).
+\end{itemize}
+\myparagraph{Protocols}
+A protocol is a set of spectification of how the messages are orchestrated, the protocol used in SAML are usually for authentication of users so the main protocols are coomunications ones and cryptograohic ones.
+\myparagraph{Bindings}
+We use bindings to bind SAML with other protocols used, are the mechanism to transport messages between requestor and responders like the HTTP redirect.
+\myparagraph{Profiles}
+SAML 2.0 profiles combine protocols assertions and bindings to create a federation and enable federated single sign on, mainly there are two types of profile:
+\begin{itemize}
+    \item \textbf{Web browser signle sign-on} provides options regarding the initiationof the message flow and the transport of the messages
+    \begin{itemize}
+        \item First scenario (IdP-Initiated SSO): A user has a login session on a website and is accessing resources on the site, at some point, either explicitly or transparently, he is directed over to a partner's website. The identity provider site asserts to the service provider site that the user is known, has authenticated to it and has cartain identity attributes. Since the two sites trust theyrselves, it trust that the user is valid and properly authenticated and thus creates a local session for the user.
+        \item Second scenario (SP-Initiated SSO): It's more common, it starts with a user visiting an SP site, possibly first accessing resouces that require no special authentication or authorization, when they subsequentialy attempt to access a protected resource at the SP, the SP will send the user to the IdP with an authentication request in order to have the user log in. Once logged in, IdP can produce an assertion that can be used by the SP to validate the user's access rights to the protected resource.
+    \end{itemize}
+    \item \textbf{Single logout} is used to terminate all the login sessions currently active for a specified user within the federation
+\end{itemize}
+
+\myparagraph{Authentication context}
+It indicates how a user authenticated at an Identity Provider, the identity provider includes the authentication context in an assertion at the request of a service provider or based on configuration at the Identity Provider. A Service Provider can require information about the authentication process to establish a level of confidence in the assertion before granting access to resources.
+
+\myparagraph{Metadata}
+A SAML Metadata document describes a SAML deployment such as SAML identity provider or a SAML service provider, the minimum set of metadata shared are Entity ID, Cryptographic keys and Protocol Endpoints. To establish a baseline of trust, parties share metadata with each other
+
+\subsubsection{Security Considerations}
+What prevents a MITM attack that might grab assertions to be illicitly replayed at a later date? SAML defines a number of security mechanisms to detect and protect against such attacks, at first using \textbf{PKI} is raccomanded by SAML, when message integrity and confidentiality are required SSL/TLS is reccomanded, is raccomanded message signing too to ensure integrity. SAML has also other security tricks:
+\begin{itemize}
+    \item Message expiration: SAML messages should contain a timestamp of when the request was issued, when it expires or both.
+    \item Message replay: Assertion should contain a unique ID that is only accepted one by application.
+    \item SAML from Different Recipient: An application should only accept a SAML message intended for the SP application
+    \item XML External Entity
+\end{itemize}
+The pricacy in SAML refers to the user's ability to control how their identity data is shared n used and to inhibit their actions at multiple service providers from being inappropriately correlated. SAML supports deployment in privacy with Persistent pseudonymus, one time/transit identifiers, authentication context.
+
+\subsection{National Identity Infrastructures}
+\subsubsection{SPID (Sistema Pubblico Identità Digitale)}
+It's based on SAML web browser SSO profile, at first service provider download identity and attribute provider list from AgID\footnote{Agency for Digital Italy}, now user contact a service provider, then the service provider redirect the authentication to a identity provider, this one challange the user with the credentials and, if the credentials match, tell the service provider that it's authenticated. Sometimes the SP can ask to another entity, the Attribute Provider, what are the attributs that the authenticated entity own (e.g. ask to motorizzazione civile what car it owns).
+
+There are three type of assurance levels:
+\begin{enumerate}
+    \item Level 1: some confidence in asserted identity's validity
+    \item Level 2: high confidence in asserted identity's validity
+    \item Level 3: very high confidence in asserted identity's validity
+\end{enumerate}
+
+\myparagraph{SPID Register}
+The SPID register are repository of all information related to the entities adhering to the SPID and represents the evidence of the so-called circcle of trust established therein. The relationship of trust on which the federation established  in SPID is achieved through the intermediation of the Agency, third party guarantor, through the process of accreditation of digital identity providers, the attribute authorities and service providers. The \textbf{federation registry} contains the list of entities that have passed the accreditation process and are therefore part of the SPID federation. For each entity the registry contains an entry called AuthorityInfo consisting of: SAML identifier of the entity, name of the subject to which the federation entity refers, type of entity, URL of the metadata provider service and a list of qualified attributes which can be certified by an Attribute Authority. The federation registry is populated by AgID.
+
+\subsubsection{CIE 3.0 (Carta d'Identità Elettronica)}
+It stores personal information like:
+\begin{itemize}
+    \item Name
+    \item Surname
+    \item Place and date of birth
+    \item Residency
+    \item Holder's pictures
+    \item Two fingerprints
+    \item ...
+\end{itemize}
+It has \textbf{NFC} for acting as electronic identity document and keycard, and it has \textbf{Cryptography} to protect stored datas. It acts like SPID, we can also prove oue identity online with CIE using the button "login with CIE". The process is similar to SPID, we have to download an app and login in the app with our credential (CIE and a PIN), then we can use the app in all the sites that "entra con CIE" button is present, to use this feature we have to click the button, then we have to enter the number shown on CIE, acquire QR 
+
+\subsubsection{European Identity Infrastructure}
+SPID is interoperable with eIDAS and CIE too. Example: opening a bank account, an Italian citizen wants to authenticate against a German online service, first the German eIDAS-node (eIDAS-Connector) is directed by the web application to initiate the authentication process, it sends a request to the Italian eIDAS-Node (eIDAS-Service). The Italian eIDAS-Node forwards the user to a system that is equipped to authenticate the Italian citizen using the national eID scheme. After authentication, the German eIDAS-Connector receives the citizen's information which it forwards to the web application. \textbf{eIDAS relies on SAML} for communication between the eIDAS-Connector and eIDAS-Service (called eIDAS-Nodes).
+\myparagraph{Vulnerability}
+European Commission has provided the eIDAS-Node Integration Package, which can be used as a basis for implementing such a service, it focuses on the SAML parsing code, SEC consult found a vulnerability that basically allowed attackers to bypass the signature verification, allowing them to send any SAML message to an affected eIDAS-Node. Attacker could, for example, send a manipulated SAML response to an eIDAS-Connector to authenticate as anybody
